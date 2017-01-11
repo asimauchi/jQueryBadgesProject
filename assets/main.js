@@ -3,17 +3,32 @@ $(function() {
       url: 'https://www.codeschool.com/users/simauchi3.json',
       dataType: 'jsonp',
       success: function(response) {
-        $.each(response.courses.completed, function(index, course){
-            //console.log(course.title);
-            $('#badges').append(
-                '<div class=".course">' +
-                '<h3>'+ course.title + '</h3>' +
-                '<img src=' + course.badge + '>' +
-                '<a href='+ course.url + 'target=\'_blank\' class=\'btn btn-primary\'> See Course </a>' +
-                '</div>'
-            );
-        });
+        console.log('response', response.courses.completed);
+        addCourses(response.courses.completed);
       }
     });
 
+    function addCourses(courses){
+        var $badges = $('#badges');
+        courses.forEach(function(course){
+            var $course = $('<div />', {
+                'class': 'course'
+            }).appendTo($badges);
+
+            $('<h3 />', {
+                text: course.title
+            }).appendTo($course);
+
+            $('<img />', {
+                src: course.badge
+            }).appendTo($course);
+
+            $('<a />', {
+                text: 'See Course',
+                href: course.url,
+                target: '_blank',
+                'class': 'btn btn-primary'
+            }).appendTo($course);
+        })
+    }
 });
