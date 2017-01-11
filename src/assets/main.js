@@ -3,9 +3,8 @@ $(function() {
       url: 'https://www.codeschool.com/users/simauchi3.json',
       dataType: 'jsonp',
       success: function(response) {
-        $.each(response, function(){
-            console.log(this);
-            //$('#badges').html('<div></div>').addClass('.course');
+        $.each(response, function(name, value){
+            $('#badges').html('<div>' + value + '</div>').addClass('.course');
         });
       }
     });
